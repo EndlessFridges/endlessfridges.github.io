@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EndlessFridges.ca - The Endless Fridge™ | Famous People Love Our Fridges!</title>
+    <style>
+        :root {
+            --primary: #00B4D8;
+            --secondary: #0077B6;
+            --accent: #FF6B6B;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --gold: #FFD700;
+            --purple: #9b59b6;
+            --gradient: linear-gradient(135deg, #00B4D8, #0077B6);
+            --gradient-gold: linear-gradient(135deg, #FFD700, #FFA500);
+            --gradient-purple: linear-gradient(135deg, #9b59b6, #6c3483);
+            --gradient-accent: linear-gradient(135deg, #FF6B6B, #e74c3c);
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ NAVIGATION ============ */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.15rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            padding: 0.45rem 0.7rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--gradient);
+            color: white;
+        }
+        .nav-cta {
+            background: var(--accent) !important;
+            color: white !important;
+            font-weight: 700 !important;
+            animation: pulse 2s infinite;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* ============ PAGE SYSTEM ============ */
+        .page { display: none; animation: fadeIn 0.5s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ SHARED COMPONENTS ============ */
+        .hero {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0d1b2a 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0,180,216,0.2), transparent 70%);
+            animation: glowPulse 3s infinite;
+        }
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,215,0,0.2);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 0.5rem; line-height: 1.1; }
+        .hero h1 .highlight {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+        }
+        .btn-gold {
+            background: var(--gradient-gold);
+            color: var(--dark);
+            font-weight: 900;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,107,0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(255,107,107,0); }
+        }
+
+        /* ============ PRODUCT CARDS ============ */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: var(--gold);
+        }
+        .product-card.featured {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(255,215,0,0.3);
+        }
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+        .badge-bestseller { background: var(--gold); color: var(--dark); }
+        .badge-new { background: var(--accent); color: white; }
+        .badge-limited { background: var(--purple); color: white; }
+        .badge-celebrity { background: linear-gradient(135deg, #ff6b6b, #ffd700); color: var(--dark); }
+        .product-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+        }
+        .product-image.fridge-standard { background: linear-gradient(180deg, #e8e8e8, #d0d0d0); }
+        .product-image.fridge-pro { background: linear-gradient(180deg, #d0d0d0, #a8a8a8); }
+        .product-image.fridge-ultimate { background: linear-gradient(180deg, #1a1a2e, #0d0d1a); }
+        .product-image.fridge-mini { background: linear-gradient(180deg, #ff9a9e, #fad0c4); }
+        .product-image.fridge-outdoor { background: linear-gradient(180deg, #4facfe, #00f2fe); }
+        .product-image.fridge-wine { background: linear-gradient(180deg, #8e2de2, #4a00e0); }
+        .product-image.fridge-smart { background: linear-gradient(180deg, #0f0c29, #302b63); }
+        .product-image.fridge-gold { background: linear-gradient(180deg, #ffd700, #ffaa00); }
+        .product-details { padding: 1.5rem; }
+        .product-details h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--dark); }
+        .product-price { font-size: 1.8rem; font-weight: 900; color: var(--accent); margin: 0.5rem 0; }
+        .product-price small { font-size: 0.9rem; color: #888; font-weight: 400; }
+        .product-specs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.75rem 0; }
+        .spec-tag {
+            background: #f0f0f0;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .product-features { list-style: none; margin: 1rem 0; }
+        .product-features li { padding: 0.3rem 0; font-size: 0.9rem; color: #555; }
+        .product-features li::before { content: '✅ '; }
+
+        /* ============ COMPARISON TABLE ============ */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            font-size: 0.9rem;
+        }
+        .comparison-table th {
+            background: var(--dark);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 700;
+        }
+        .comparison-table th:first-child { text-align: left; }
+        .comparison-table td {
+            padding: 0.85rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+        .comparison-table tr:nth-child(even) { background: #fafafa; }
+        .comparison-table tr:hover { background: #f0f8ff; }
+        .check { color: #2ecc71; font-weight: 700; }
+        .cross { color: #e74c3c; }
+        .star { color: var(--gold); }
+
+        /* ============ SHOWROOM ============ */
+        .showroom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .showroom-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .showroom-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        }
+        .showroom-image {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .showroom-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+        }
+        .showroom-overlay h3 { font-size: 1.3rem; margin-bottom: 0.25rem; }
+        .showroom-overlay p { font-size: 0.9rem; opacity: 0.9; }
+
+        /* ============ CELEBRITY CARDS ============ */
+        .celebrity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .celebrity-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--gold);
+        }
+        .celebrity-card:hover { transform: translateY(-5px); }
+        .celebrity-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: var(--gradient);
+            color: white;
+        }
+        .celebrity-card h4 { margin-bottom: 0.25rem; }
+        .celebrity-card .role { color: #888; font-size: 0.85rem; margin-bottom: 0.75rem; }
+        .celebrity-quote { font-style: italic; color: #555; }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--dark);
+            color: #aaa;
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 3rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .footer-col h3 { color: white; margin-bottom: 1rem; font-size: 1.1rem; }
+        .footer-col a { color: #aaa; text-decoration: none; display: block; margin-bottom: 0.5rem; cursor: pointer; }
+        .footer-col a:hover { color: var(--primary); }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-links.show { display: flex; }
+            .hamburger { display: flex; }
+            .hero h1 { font-size: 2rem; }
+            .section-title { font-size: 1.6rem; }
+            .comparison-table { font-size: 0.7rem; }
+            .comparison-table th, .comparison-table td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="navigateTo('home')">Endless<span style="font-weight:300;">Fridges.ca</span></a>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="navigateTo('home')" class="active" data-page="home">🏠 Home</a></li>
+                <li><a href="#" onclick="navigateTo('products')" data-page="products">🛒 All Fridges</a></li>
+                <li><a href="#" onclick="navigateTo('showroom')" data-page="showroom">🏪 Showroom</a></li>
+                <li><a href="#" onclick="navigateTo('compare')" data-page="compare">🆚 Compare</a></li>
+                <li><a href="#" onclick="navigateTo('special')" data-page="special">🌟 Special Editions</a></li>
+                <li><a href="#" onclick="navigateTo('about')" data-page="about">📖 About</a></li>
+                <li><a href="#" onclick="navigateTo('faq')" data-page="faq">❓ FAQ</a></li>
+                <li><a href="#" onclick="navigateTo('contact')" data-page="contact">📞 Contact</a></li>
+                <li><a href="#" onclick="navigateTo('order')" class="nav-cta" data-page="order">🔥 Order Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== HOME PAGE ==================== -->
+    <div class="page active" id="page-home">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">⭐ FAMOUS PEOPLE LOVE OUR FRIDGES! ⭐</div>
+                <h1>The <span class="highlight">Endless</span> Fridge™</h1>
+                <p style="font-size:1.3rem;color:#ccc;font-style:italic;margin-bottom:1rem;">"Your solution to endless food possibilities!"</p>
+                <p style="color:var(--gold);margin-bottom:2rem;">🌟 As Seen on TV • Trusted by Celebrities Worldwide 🌟</p>
+                <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                    <a href="#" class="btn btn-primary" onclick="navigateTo('order')">🔥 ORDER NOW - 20% OFF!</a>
+                    <a href="#" class="btn btn-outline" onclick="navigateTo('products')">View All Fridges</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">The Revolution Starts Here</h2>
+            <p class="section-subtitle">8 incredible models to choose from</p>
+            <div class="products-grid">
+                <div class="product-card featured" style="cursor:pointer;" onclick="navigateTo('products')">
+                    <div class="product-badge badge-bestseller">🔥 BEST SELLER</div>
+                    <div class="product-image fridge-standard">🧊</div>
+                    <div class="product-details">
+                        <h3>Endless Fridge™ Standard</h3>
+                        <div class="product-price">$15,000</div>
+                        <p style="color:#666;">The original. The legend. 6+ cuisines, bottom freezer, FREE Mandarin trip!</p>
+                    </div>
+                </div>
+                <div class="product-card" style="cursor:pointer;" onclick="navigateTo('products')">
+                    <div class="product-image fridge-pro">💎</div>
+                    <div class="product-details">
+                        <h3>Endless Fridge™ Pro</h3>
+                        <div class="product-price">$22,000</div>
+                        <p style="color:#666;">12+ cuisines, AI chef, double freezer. For the serious food enthusiast.</p>
+                    </div>
+                </div>
+                <div class="product-card" style="cursor:pointer;" onclick="navigateTo('products')">
+                    <div class="product-image fridge-ultimate" style="color:white;">👑</div>
+                    <div class="product-details">
+                        <h3>Endless Fridge™ Ultimate</h3>
+                        <div class="product-price">$35,000</div>
+                        <p style="color:#666;">All cuisines. Holographic display. First-class Mandarin trip.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:2rem;">
+                <a href="#" class="btn btn-gold" onclick="navigateTo('products')" style="font-size:1.1rem;">🛒 SEE ALL 8 MODELS →</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== ALL PRODUCTS PAGE ==================== -->
+    <div class="page" id="page-products">
+        <section class="section">
+            <h2 class="section-title">Complete Fridge Lineup</h2>
+            <p class="section-subtitle">8 revolutionary models. Infinite possibilities.</p>
+            <div class="products-grid">
+                <!-- 1. Standard -->
+                <div class="product-card featured">
+                    <div class="product-badge badge-bestseller">🔥 BEST SELLER</div>
+                    <div class="product-image fridge-standard">🧊</div>
+                    <div class="product-details">
+                        <h3>1. Endless Fridge™ Standard</h3>
+                        <div class="product-price">$15,000</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">36"W</span><span class="spec-tag">70"H</span><span class="spec-tag">30"D</span><span class="spec-tag">6+ Cuisines</span>
+                        </div>
+                        <ul class="product-features">
+                            <li>Touch screen with 6 cuisines</li>
+                            <li>Bottom freezer compartment</li>
+                            <li>Monthly payment plans</li>
+                            <li>FREE Standard Mandarin trip!</li>
+                            <li>Creates meals in minutes</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width:100%;text-align:center;" onclick="navigateTo('order')">Order Now</a>
+                    </div>
+                </div>
+
+                <!-- 2. Pro -->
+                <div class="product-card">
+                    <div class="product-badge badge-new">✨ NEW</div>
+                    <div class="product-image fridge-pro">💎</div>
+                    <div class="product-details">
+                        <h3>2. Endless Fridge™ Pro</h3>
+                        <div class="product-price">$22,000</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">42"W</span><span class="spec-tag">72"H</span><span class="spec-tag">32"D</span><span class="spec-tag">12+ Cuisines</span>
+                        </div>
+                        <ul class="product-features">
+                            <li>AI-powered food recommendations</li>
+                            <li>Double freezer capacity</li>
+                            <li>Voice control activated</li>
+                            <li>FREE Premium Mandarin trip!</li>
+                            <li>Wine pairing suggestions</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width:100%;text-align:center;" onclick="navigateTo('order')">Order Now</a>
+                    </div>
+                </div>
+
+                <!-- 3. Ultimate -->
+                <div class="product-card">
+                    <div class="product-badge badge-limited">👑 LIMITED</div>
+                    <div class="product-image fridge-ultimate" style="color:white;">👑</div>
+                    <div class="product-details">
+                        <h3>3. Endless Fridge™ Ultimate</h3>
+                        <div class="product-price">$35,000</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">48"W</span><span class="spec-tag">74"H</span><span class="spec-tag">34"D</span><span class="spec-tag">ALL Cuisines</span>
+                        </div>
+                        <ul class="product-features">
+                            <li>Holographic display interface</li>
+                            <li>Built-in wine cooler</li>
+                            <li>Smart home integration</li>
+                            <li>FREE First Class Mandarin trip!</li>
+                            <li>Personal celebrity chef mode</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width:100%;text-align:center;" onclick="navigateTo('order')">Order Now</a>
+                    </div>
+                </div>
+
+                <!-- 4. Mini -->
+                <div class="product-card">
+                    <div class="product-badge badge-new">✨ NEW</div>
+                    <div class="product-image fridge-mini">🍱</div>
+                    <div class="product-details">
+                        <h3>4. Endless Fridge™ Mini</h3>
+                        <div class="product-price">$8,500</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">24"W</span><span class="spec-tag">48"H</span><span class="spec-tag">22"D</span><span class="spec-tag">4 Cuisines</span>
+                        </div>
+                        <ul class="product-features">
+                            <li>Perfect for apartments & dorms</li>
+                            <li>Compact design, huge flavor</li>
+                            <li>Energy efficient</li>
+                            <li>FREE Mini Mandarin sampler!</li>
+                            <li>Counter-height convenience</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width:100%;text-align:center;" onclick="navigateTo('order')">Order Now</a>
+                    </div>
+                </div>
+
+                <!-- 5. Outdoor -->
+                <div class="product-card">
+                    <div class="product-image fridge-outdoor">🏕️</div>
+                    <div class="product-details">
+                        <h3>5. Endless Fridge™ Outdoor</h3>
+                        <div class="product-price">$18,500</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">40"W</span><span class="spec-tag">68"H</span><span class="spec-tag">32"D</span><span class="spec-tag">8 Cuisines</span>
+                        </div>
+                        <ul class="product-features">
+                            <li>Weatherproof stainless steel</li>
+                            <li>Solar-powered option available</li>
+                            <li>BBQ cuisine specialty mode</li>
+                            <li>FREE Outdoor dining Mandarin trip!</li>
+                            <li>Built-in bug zapper</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width:100%;text-align:center;" onclick="navigateTo('order')">Order Now</a>
+                    </div>
+                </div>
+
+                <!-- 6. Wine -->
+                <div class="product-card">
+                    <div class="product-image fridge-wine" style="color:white;">🍷</div>
+                    <div class="product-details">
+                        <h3>6. Endless Fridge™ Wine</h3>
+                        <div class="product-price">$28,000</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">36"W</span><span class="spec-tag">70"H</span><span class="spec-tag">30"D</span><span class="spec-tag">All + Wine</span>
+                        </div>
+                        <ul class="product-features">
+                            <li>Temperature-controlled wine vault</li>
+                            <li>Creates ANY vintage on demand</li>
+                            <li>Sommelier AI included</li>
+                            <li>FREE Wine-tasting Mandarin trip!</li>
+                            <li>Cheese pairing suggestions</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width:100%;text-align:center;" onclick="navigateTo('order')">Order Now</a>
+                    </div>
+                </div>
+
+                <!-- 7. Smart -->
+                <div class="product-card">
+                    <div class="product-badge badge-new">🤖 AI</div>
+                    <div class="product-image fridge-smart" style="color:white;">🤖</div>
+                    <div class="product-details">
+                        <h3>7. Endless Fridge™ Smart AI</h3>
+                        <div class="product-price">$32,000</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">42"W</span><span class="spec-tag">72"H</span><span class="spec-tag">33"D</span><span class="spec-tag">ALL Cuisines</span>
+                        </div>
+                        <ul class="product-features">
+                            <li>Full AI chef with personality</li>
+                            <li>Learns your taste preferences</li>
+                            <li>Automatically orders ingredients</li>
+                            <li>FREE AI-curated Mandarin trip!</li>
+                            <li>Conversational cooking companion</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width:100%;text-align:center;" onclick="navigateTo('order')">Order Now</a>
+                    </div>
+                </div>
+
+                <!-- 8. Gold -->
+                <div class="product-card">
+                    <div class="product-badge badge-celebrity">⭐ 24K</div>
+                    <div class="product-image fridge-gold">✨</div>
+                    <div class="product-details">
+                        <h3>8. Endless Fridge™ 24K Gold</h3>
+                        <div class="product-price">$150,000</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">48"W</span><span class="spec-tag">74"H</span><span class="spec-tag">36"D</span><span class="spec-tag">ALL + Custom</span>
+                        </div>
+                        <ul class="product-features">
+                            <li>24-karat gold-plated exterior</li>
+                            <li>Diamond-encrusted handle</li>
+                            <li>Personal celebrity chef concierge</li>
+                            <li>FREE Private Jet Mandarin trip!</li>
+                            <li>Lifetime warranty & butler service</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width:100%;text-align:center;" onclick="navigateTo('order')">Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== SHOWROOM PAGE ==================== -->
+    <div class="page" id="page-showroom">
+        <section class="section">
+            <h2 class="section-title">Virtual Showroom</h2>
+            <p class="section-subtitle">Step inside and explore our magnificent fridge collection</p>
+            <div class="showroom-grid">
+                <div class="showroom-card" onclick="navigateTo('products')">
+                    <div class="showroom-image fridge-standard">🧊</div>
+                    <div class="showroom-overlay">
+                        <h3>🏠 The Standard Collection</h3>
+                        <p>Where it all begins. Classic, reliable, revolutionary.</p>
+                    </div>
+                </div>
+                <div class="showroom-card" onclick="navigateTo('products')">
+                    <div class="showroom-image fridge-pro">💎</div>
+                    <div class="showroom-overlay">
+                        <h3>💼 The Professional Suite</h3>
+                        <p>For those who demand more from their fridge.</p>
+                    </div>
+                </div>
+                <div class="showroom-card" onclick="navigateTo('products')">
+                    <div class="showroom-image fridge-ultimate" style="color:white;">👑</div>
+                    <div class="showroom-overlay">
+                        <h3>👑 The Ultimate Experience</h3>
+                        <p>The pinnacle of refrigeration technology.</p>
+                    </div>
+                </div>
+                <div class="showroom-card" onclick="navigateTo('products')">
+                    <div class="showroom-image fridge-mini">🍱</div>
+                    <div class="showroom-overlay">
+                        <h3>🏠 Compact Living</h3>
+                        <p>Big flavor in a small package. Perfect for any space.</p>
+                    </div>
+                </div>
+                <div class="showroom-card" onclick="navigateTo('products')">
+                    <div class="showroom-image fridge-outdoor">🏕️</div>
+                    <div class="showroom-overlay">
+                        <h3>🌲 Great Outdoors</h3>
+                        <p>Rugged. Weatherproof. Adventure-ready.</p>
+                    </div>
+                </div>
+                <div class="showroom-card" onclick="navigateTo('special')">
+                    <div class="showroom-image fridge-gold">✨</div>
+                    <div class="showroom-overlay">
+                        <h3>⭐ Special Editions</h3>
+                        <p>Limited runs. Celebrity collaborations. Pure luxury.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== COMPARE PAGE ==================== -->
+    <div class="page" id="page-compare">
+        <section class="section">
+            <h2 class="section-title">Compare All Models</h2>
+            <p class="section-subtitle">Find the perfect Endless Fridge for your lifestyle</p>
+            <div style="overflow-x:auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Standard</th>
+                            <th>Pro</th>
+                            <th>Ultimate</th>
+                            <th>Mini</th>
+                            <th>Outdoor</th>
+                            <th>Wine</th>
+                            <th>Smart AI</th>
+                            <th>24K Gold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Price</td>
+                            <td><strong>$15K</strong></td>
+                            <td><strong>$22K</strong></td>
+                            <td><strong>$35K</strong></td>
+                            <td><strong>$8.5K</strong></td>
+                            <td><strong>$18.5K</strong></td>
+                            <td><strong>$28K</strong></td>
+                            <td><strong>$32K</strong></td>
+                            <td><strong>$150K</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Width</td>
+                            <td>36"</td>
+                            <td>42"</td>
+                            <td>48"</td>
+                            <td>24"</td>
+                            <td>40"</td>
+                            <td>36"</td>
+                            <td>42"</td>
+                            <td>48"</td>
+                        </tr>
+                        <tr>
+                            <td>Height</td>
+                            <td>70"</td>
+                            <td>72"</td>
+                            <td>74"</td>
+                            <td>48"</td>
+                            <td>68"</td>
+                            <td>70"</td>
+                            <td>72"</td>
+                            <td>74"</td>
+                        </tr>
+                        <tr>
+                            <td>Depth</td>
+                            <td>30"</td>
+                            <td>32"</td>
+                            <td>34"</td>
+                            <td>22"</td>
+                            <td>32"</td>
+                            <td>30"</td>
+                            <td>33"</td>
+                            <td>36"</td>
+                        </tr>
+                        <tr>
+                            <td>Cuisines</td>
+                            <td>6+</td>
+                            <td>12+</td>
+                            <td>ALL</td>
+                            <td>4</td>
+                            <td>8</td>
+                            <td>ALL + Wine</td>
+                            <td>ALL</td>
+                            <td>ALL + Custom</td>
+                        </tr>
+                        <tr>
+                            <td>Touch Screen</td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅ Holographic</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅ Holographic</span></td>
+                            <td><span class="check">✅ Holographic</span></td>
+                        </tr>
+                        <tr>
+                            <td>Bottom Freezer</td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅ Double</span></td>
+                            <td><span class="check">✅ Double</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅ Double</span></td>
+                            <td><span class="check">✅ Triple</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI Chef</td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="check">✅ Basic</span></td>
+                            <td><span class="check">✅ Advanced</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="check">✅ Sommelier</span></td>
+                            <td><span class="check">✅ Full AI</span></td>
+                            <td><span class="check">✅ Concierge</span></td>
+                        </tr>
+                        <tr>
+                            <td>Voice Control</td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="check">✅</span></td>
+                        </tr>
+                        <tr>
+                            <td>Weatherproof</td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="check">✅</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="cross">❌</span></td>
+                            <td><span class="check">✅</span></td>
+                        </tr>
+                        <tr>
+                            <td>Mandarin Trip</td>
+                            <td>Standard</td>
+                            <td>Premium</td>
+                            <td>First Class</td>
+                            <td>Mini Sampler</td>
+                            <td>Outdoor Dining</td>
+                            <td>Wine Tasting</td>
+                            <td>AI Curated</td>
+                            <td>Private Jet ✈️</td>
+                        </tr>
+                        <tr>
+                            <td>Warranty</td>
+                            <td>5 Years</td>
+                            <td>7 Years</td>
+                            <td>10 Years</td>
+                            <td>3 Years</td>
+                            <td>5 Years</td>
+                            <td>10 Years</td>
+                            <td>10 Years</td>
+                            <td>Lifetime</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align:center;margin-top:2rem;">
+                <p style="color:#888;margin-bottom:1rem;">Still can't decide? Our fridge experts are standing by!</p>
+                <a href="#" class="btn btn-primary" onclick="navigateTo('contact')">📞 Talk to a Fridge Expert</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== SPECIAL EDITIONS PAGE ==================== -->
+    <div class="page" id="page-special">
+        <section class="section">
+            <h2 class="section-title">Special & Celebrity Editions</h2>
+            <p class="section-subtitle">Limited edition fridges inspired by the famous people who love them</p>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge badge-celebrity">⭐ CELEBRITY</div>
+                    <div class="product-image" style="background:linear-gradient(180deg, #ffd700, #ff8c00);">🎤</div>
+                    <div class="product-details">
+                        <h3>The Diva Edition</h3>
+                        <div class="product-price">$75,000</div>
+                        <p style="color:#888;font-style:italic;">"I only eat food from this fridge now."</p>
+                        <ul class="product-features">
+                            <li>Gold microphone handle</li>
+                            <li>Built-in karaoke screen</li>
+                            <li>Dressing room lighting</li>
+                            <li>Only serves 5-star meals</li>
+                            <li>Comes with security detail</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge badge-celebrity">⭐ CELEBRITY</div>
+                    <div class="product-image" style="background:linear-gradient(180deg, #1a1a2e, #000);color:white;">🎬</div>
+                    <div class="product-details">
+                        <h3>The Director's Cut</h3>
+                        <div class="product-price">$85,000</div>
+                        <p style="color:#888;font-style:italic;">"My fridge has a better catering budget than most movies."</p>
+                        <ul class="product-features">
+                            <li>Clapperboard interface</li>
+                            <li>Director's chair included</li>
+                            <li>"Action!" voice activation</li>
+                            <li>Behind-the-scenes meal prep</li>
+                            <li>Red carpet delivery mode</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge badge-celebrity">⭐ CELEBRITY</div>
+                    <div class="product-image" style="background:linear-gradient(180deg, #c0c0c0, #808080);">🏆</div>
+                    <div class="product-details">
+                        <h3>The Champion Edition</h3>
+                        <div class="product-price">$95,000</div>
+                        <p style="color:#888;font-style:italic;">"I've won 12 championships and this fridge."</p>
+                        <ul class="product-features">
+                            <li>Championship ring holder</li>
+                            <li>Victory meal mode</li>
+                            <li>Locker room inspired design</li>
+                            <li>Gatorade dispenser built-in</li>
+                            <li>Comes with trophy case</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge badge-limited">🌍 ONE OF ONE</div>
+                    <div class="product-image" style="background:linear-gradient(180deg, #ff0000, #8b0000);color:white;">💎</div>
+                    <div class="product-details">
+                        <h3>The Billionaire's Vault</h3>
+                        <div class="product-price">$500,000</div>
+                        <p style="color:#888;font-style:italic;">Price is irrelevant when you're this famous.</p>
+                        <ul class="product-features">
+                            <li>Solid diamond door handle</li>
+                            <li>Private island delivery</li>
+                            <li>Personal chef pre-installed</li>
+                            <li>Yacht-compatible dimensions</li>
+                            <li>Bragging rights included</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Celebrity Testimonials -->
+        <section class="section" style="background:#f5f5f5;max-width:100%;">
+            <div style="max-width:1300px;margin:0 auto;">
+                <h2 class="section-title">Famous People Who Love Our Fridges</h2>
+                <p class="section-subtitle">⭐ They're famous. They love fridges. Our fridges. ⭐</p>
+                <div class="celebrity-grid">
+                    <div class="celebrity-card">
+                        <div class="celebrity-avatar">🎤</div>
+                        <h4>Globally Famous Pop Star</h4>
+                        <p class="role">12x Grammy Winner</p>
+                        <p class="celebrity-quote">"I fired my private chef. My Endless Fridge makes better sushi at 3am."</p>
+                    </div>
+                    <div class="celebrity-card">
+                        <div class="celebrity-avatar">🎬</div>
+                        <h4>Award-Winning Actor</h4>
+                        <p class="role">3x Oscar Winner</p>
+                        <p class="celebrity-quote">"I method-acted as a hungry person. Then I bought this fridge. Life changed."</p>
+                    </div>
+                    <div class="celebrity-card">
+                        <div class="celebrity-avatar">🏆</div>
+                        <h4>Legendary Athlete</h4>
+                        <p class="role">Olympic Gold Medalist</p>
+                        <p class="celebrity-quote">"My Endless Fridge has a better win record than I do."</p>
+                    </div>
+                    <div class="celebrity-card">
+                        <div class="celebrity-avatar">💼</div>
+                        <h4>Tech Billionaire</h4>
+                        <p class="role">Net Worth: Yes</p>
+                        <p class="celebrity-quote">"I bought the entire company. Now all fridges are mine. Still worth it."</p>
+                    </div>
+                    <div class="celebrity-card">
+                        <div class="celebrity-avatar">👑</div>
+                        <h4>Royal Family Member</h4>
+                        <p class="role">Actual Royalty</p>
+                        <p class="celebrity-quote">"One does not simply open a normal fridge anymore."</p>
+                    </div>
+                    <div class="celebrity-card">
+                        <div class="celebrity-avatar">🚀</div>
+                        <h4>Space Tourist</h4>
+                        <p class="role">Went to Space</p>
+                        <p class="celebrity-quote">"Space food is terrible. My Endless Fridge is the only reason I came back to Earth."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== ABOUT PAGE ==================== -->
+    <div class="page" id="page-about">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">📺 AS SEEN ON TV</div>
+                <h1>About <span class="highlight">EndlessFridges.ca</span></h1>
+                <p style="font-size:1.2rem;color:#ccc;">Revolutionizing kitchens since... recently.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div style="max-width:800px;margin:0 auto;">
+                <div style="background:white;padding:2rem;border-radius:16px;box-shadow:var(--shadow);margin-bottom:2rem;">
+                    <h3 style="color:var(--secondary);margin-bottom:1rem;">📺 Full TV Commercial Script</h3>
+                    <div style="font-family:'Courier New',monospace;font-size:0.9rem;line-height:2;">
+                        <p><strong style="color:#e74c3c;">Y:</strong> Don't you just hate it when you open your fridge and find it empty—no eggs, no milk, and no favourite snacks?</p>
+                        <p><strong style="color:#2ecc71;">N:</strong> Well, guess what? We've revolutionized the way you stock your kitchen with our groundbreaking fridge that can provide all the food you crave!</p>
+                        <p><strong style="color:#e74c3c;">Y:</strong> Introducing the Endless fridge, your solution to endless food possibilities!</p>
+                        <p><strong style="color:#2ecc71;">N:</strong> Imagine a fridge that can create literally any meal you desire.</p>
+                        <p><strong style="color:#e74c3c;">Y:</strong> Whether it's a crispy chicken leg or a Chinese-style buffet…</p>
+                        <p><strong style="color:#2ecc71;">N:</strong> The Endless has you covered!</p>
+                        <p><strong style="color:#e74c3c;">Y:</strong> With the latest technology, it prepares delicious meals in just minutes.</p>
+                        <p><strong style="color:#2ecc71;">N:</strong> Best of all, the Endless starts at just $15,000 with convenient monthly payments!</p>
+                        <p><strong style="color:#e74c3c;">Y:</strong> At 36 inches wide, 70 inches tall, and 30 inches deep, the Endless is the ultimate choice for quality and design.</p>
+                        <p><strong style="color:#2ecc71;">N:</strong> Don't wait any longer! Order now at Orderfridgesnow.ca. Use code 286Endless at checkout for a fantastic 20% discount.</p>
+                        <p><strong style="color:#e74c3c;">Y:</strong> Don't miss out on this limited-time offer, valid only until August 16th!</p>
+                        <p><strong style="color:#2ecc71;">N:</strong> Stop waiting by your Endless fridge—take action now!</p>
+                        <p><strong style="color:#9b59b6;">NY (Together):</strong> Famous people love our fridges!</p>
+                        <p><strong style="color:#e74c3c;">Y:</strong> This ad is proudly brought to you by Endlessfridges.ca.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== FAQ PAGE ==================== -->
+    <div class="page" id="page-faq">
+        <section class="section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Everything about your future Endless Fridge</p>
+            <div style="max-width:800px;margin:0 auto;" id="faqContainer">
+                <!-- FAQs populated by JS -->
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== CONTACT PAGE ==================== -->
+    <div class="page" id="page-contact">
+        <section class="section">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Famous people contact us all the time. You should too.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1000px;margin:0 auto;">
+                <div style="background:white;padding:2rem;border-radius:16px;box-shadow:var(--shadow);">
+                    <form onsubmit="handleContactSubmit(event)">
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-weight:600;display:block;margin-bottom:0.3rem;">Full Name *</label>
+                            <input type="text" required style="width:100%;padding:0.75rem;border:2px solid #e0e0e0;border-radius:8px;font-size:1rem;" placeholder="e.g., A Famous Person">
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-weight:600;display:block;margin-bottom:0.3rem;">Email *</label>
+                            <input type="email" required style="width:100%;padding:0.75rem;border:2px solid #e0e0e0;border-radius:8px;font-size:1rem;" placeholder="you@famous.com">
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-weight:600;display:block;margin-bottom:0.3rem;">Subject</label>
+                            <select style="width:100%;padding:0.75rem;border:2px solid #e0e0e0;border-radius:8px;font-size:1rem;">
+                                <option>General Inquiry</option>
+                                <option>Sales Question</option>
+                                <option>Celebrity Endorsement</option>
+                                <option>Mandarin Trip Info</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-weight:600;display:block;margin-bottom:0.3rem;">Message *</label>
+                            <textarea rows="5" required style="width:100%;padding:0.75rem;border:2px solid #e0e0e0;border-radius:8px;font-size:1rem;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">📬 Send Message</button>
+                    </form>
+                </div>
+                <div>
+                    <div style="background:white;padding:2rem;border-radius:16px;box-shadow:var(--shadow);margin-bottom:1.5rem;">
+                        <h3 style="color:var(--secondary);margin-bottom:1rem;">📍 Contact Info</h3>
+                        <p>🌐 <strong>Website:</strong> EndlessFridges.ca</p>
+                        <p>🛒 <strong>Order:</strong> Orderfridgesnow.ca</p>
+                        <p>📞 <strong>Phone:</strong> 1-800-ENDLESS</p>
+                        <p>📧 <strong>Email:</strong> hello@endlessfridges.ca</p>
+                    </div>
+                    <div style="background:var(--gradient);color:white;padding:2rem;border-radius:16px;text-align:center;">
+                        <h3>🌟 Are You Famous?</h3>
+                        <p>Famous people get priority support!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== ORDER PAGE ==================== -->
+    <div class="page" id="page-order">
+        <section class="section">
+            <h2 class="section-title">Order Your Endless Fridge</h2>
+            <p class="section-subtitle">🔥 20% OFF with code 286ENDLESS!</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1000px;margin:0 auto;">
+                <div style="background:white;padding:2rem;border-radius:16px;box-shadow:var(--shadow);">
+                    <form onsubmit="handleOrderSubmit(event)">
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-weight:600;">Select Model *</label>
+                            <select id="orderModel" onchange="updateOrderSummary()" style="width:100%;padding:0.75rem;border:2px solid #e0e0e0;border-radius:8px;">
+                                <option value="standard">Standard - $15,000</option>
+                                <option value="pro">Pro - $22,000</option>
+                                <option value="ultimate">Ultimate - $35,000</option>
+                                <option value="mini">Mini - $8,500</option>
+                                <option value="outdoor">Outdoor - $18,500</option>
+                                <option value="wine">Wine - $28,000</option>
+                                <option value="smart">Smart AI - $32,000</option>
+                                <option value="gold">24K Gold - $150,000</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-weight:600;">Full Name *</label>
+                            <input type="text" required style="width:100%;padding:0.75rem;border:2px solid #e0e0e0;border-radius:8px;">
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-weight:600;">Email *</label>
+                            <input type="email" required style="width:100%;padding:0.75rem;border:2px solid #e0e0e0;border-radius:8px;">
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-weight:600;">Promo Code</label>
+                            <input type="text" id="promoCode" value="286ENDLESS" onchange="updateOrderSummary()" style="width:100%;padding:0.75rem;border:2px solid #e0e0e0;border-radius:8px;font-weight:700;letter-spacing:2px;">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;font-size:1.2rem;">🔥 PLACE ORDER NOW!</button>
+                    </form>
+                </div>
+                <div id="orderSummary" style="background:white;padding:2rem;border-radius:16px;box-shadow:var(--shadow);position:sticky;top:100px;">
+                    <h3 style="color:var(--secondary);">🧾 Order Summary</h3>
+                    <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid #eee;"><span>Endless Fridge™ Standard</span><span>$15,000</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid #eee;"><span>Mandarin Trip</span><span style="color:#2ecc71;">FREE</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid #eee;"><span>20% Discount</span><span style="color:#e74c3c;">-$3,000</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:1rem 0;font-size:1.4rem;font-weight:900;color:var(--accent);"><span>Total</span><span>$12,000</span></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>EndlessFridges.ca</h3>
+                <p>"Famous people love our fridges!!!!"</p>
+                <p>⭐ ⭐ ⭐ ⭐ ⭐</p>
+            </div>
+            <div class="footer-col">
+                <h3>Shop</h3>
+                <a onclick="navigateTo('products')">All Fridges</a>
+                <a onclick="navigateTo('showroom')">Showroom</a>
+                <a onclick="navigateTo('compare')">Compare Models</a>
+                <a onclick="navigateTo('special')">Special Editions</a>
+            </div>
+            <div class="footer-col">
+                <h3>Support</h3>
+                <a onclick="navigateTo('faq')">FAQ</a>
+                <a onclick="navigateTo('contact')">Contact</a>
+                <a onclick="navigateTo('order')">Order Now</a>
+            </div>
+            <div class="footer-col">
+                <h3>Order</h3>
+                <p>Orderfridgesnow.ca</p>
+                <p>Code: 286ENDLESS</p>
+                <p>20% OFF!</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EndlessFridges.ca | This ad is proudly brought to you by Endlessfridges.ca</p>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== NAVIGATION ====================
+        function navigateTo(pageName) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById('page-' + pageName);
+            if (target) target.classList.add('active');
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageName) link.classList.add('active');
+            });
+            document.getElementById('navLinks').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('show');
+        }
+
+        // ==================== FAQ POPULATION ====================
+        const faqs = [
+            { q: '🤔 How does the Endless Fridge work?', a: 'Revolutionary food synthesis technology creates any meal in minutes. Select your cuisine on the touch screen and enjoy!' },
+            { q: '💰 What are the payment options?', a: 'Starting at $15,000 with convenient monthly payment plans. Use code 286ENDLESS for 20% off!' },
+            { q: '✈️ Is the Mandarin trip really included?', a: 'Absolutely! Every purchase includes an all-expenses-paid trip to the Mandarin. Trip level depends on model.' },
+            { q: '📐 What are the dimensions?', a: 'Standard: 36"W × 70"H × 30"D. Other models vary. See our Compare page for full specs.' },
+            { q: '🧊 Does it have a freezer?', a: 'Yes! All models feature bottom freezers. Pro and above have double or triple capacity.' },
+            { q: '⭐ Do famous people really love these fridges?', a: 'Our slogan says it all: "Famous people love our fridges!!!!" With four exclamation marks, you know it\'s true.' },
+            { q: '📅 When does the discount expire?', a: 'Limited-time offer valid until August 16th, 2026. Order now at Orderfridgesnow.ca!' },
+            { q: '🤖 What does the AI chef do?', a: 'Available on Pro and above, our AI learns your tastes, suggests meals, and becomes your personal cooking companion.' },
+        ];
+
+        const faqContainer = document.getElementById('faqContainer');
+        if (faqContainer) {
+            faqs.forEach((faq, i) => {
+                const div = document.createElement('div');
+                div.style.cssText = 'background:white;border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:0.75rem;box-shadow:0 4px 20px rgba(0,0,0,0.1);cursor:pointer;transition:all 0.3s ease;';
+                div.innerHTML = `
+                    <div style="font-weight:700;font-size:1.1rem;display:flex;justify-content:space-between;align-items:center;">
+                        ${faq.q} <span style="font-size:1.5rem;">+</span>
+                    </div>
+                    <div style="margin-top:0.75rem;color:#666;display:none;">${faq.a}</div>
+                `;
+                div.addEventListener('click', function() {
+                    const answer = this.querySelector('div:last-child');
+                    const icon = this.querySelector('span');
+                    const isOpen = answer.style.display === 'block';
+                    document.querySelectorAll('#faqContainer > div > div:last-child').forEach(a => a.style.display = 'none');
+                    document.querySelectorAll('#faqContainer span').forEach(s => s.textContent = '+');
+                    if (!isOpen) {
+                        answer.style.display = 'block';
+                        icon.textContent = '−';
+                    }
+                });
+                faqContainer.appendChild(div);
+            });
+        }
+
+        // ==================== ORDER SUMMARY ====================
+        function updateOrderSummary() {
+            const model = document.getElementById('orderModel')?.value || 'standard';
+            const promo = (document.getElementById('promoCode')?.value || '').trim().toUpperCase();
+            const prices = {
+                standard: { price: 15000, name: 'Endless Fridge™ Standard' },
+                pro: { price: 22000, name: 'Endless Fridge™ Pro' },
+                ultimate: { price: 35000, name: 'Endless Fridge™ Ultimate' },
+                mini: { price: 8500, name: 'Endless Fridge™ Mini' },
+                outdoor: { price: 18500, name: 'Endless Fridge™ Outdoor' },
+                wine: { price: 28000, name: 'Endless Fridge™ Wine' },
+                smart: { price: 32000, name: 'Endless Fridge™ Smart AI' },
+                gold: { price: 150000, name: 'Endless Fridge™ 24K Gold' },
+            };
+            const selected = prices[model];
+            const discount = promo === '286ENDLESS' ? selected.price * 0.2 : 0;
+            const total = selected.price - discount;
+            const summary = document.getElementById('orderSummary');
+            if (summary) {
+                summary.innerHTML = `
+                    <h3 style="color:var(--secondary);">🧾 Order Summary</h3>
+                    <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid #eee;"><span>${selected.name}</span><span>$${selected.price.toLocaleString()}</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid #eee;"><span>Mandarin Trip</span><span style="color:#2ecc71;">FREE</span></div>
+                    ${discount > 0 ? `<div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid #eee;"><span>20% Discount (286ENDLESS)</span><span style="color:#e74c3c;">-$${discount.toLocaleString()}</span></div>` : ''}
+                    <div style="display:flex;justify-content:space-between;padding:1rem 0;font-size:1.4rem;font-weight:900;color:var(--accent);"><span>Total</span><span>$${total.toLocaleString()}</span></div>
+                `;
+            }
+        }
+
+        // ==================== FORM HANDLERS ====================
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            alert('📬 Thank you! Our team of famous-people-lovers will respond shortly. Remember: Famous people love our fridges!!!!');
+            e.target.reset();
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            alert('🎉 CONGRATULATIONS! Your Endless Fridge is being prepared! ✈️ Your Mandarin trip is being booked! 📧 Confirmation sent! Remember: Famous people love our fridges!!!!');
+            e.target.reset();
+            if (document.getElementById('promoCode')) document.getElementById('promoCode').value = '286ENDLESS';
+            updateOrderSummary();
+        }
+
+        // ==================== INIT ====================
+        updateOrderSummary();
+        console.log('🍗 EndlessFridges.ca — 9 Pages, 8 Fridges, Infinite Possibilities!');
+        console.log('📄 Home | All Fridges | Showroom | Compare | Special Editions | About | FAQ | Contact | Order');
+        console.log('⭐ Famous people love our fridges!!!!');
+    </script>
+</body>
+</html>
